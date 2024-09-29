@@ -1,6 +1,6 @@
 # Employee-Tracker
-Manage a company's employee database
 ## Description 
+Manage a company's employee database
 This is a command-line application that allowes a company to track it's employees database. 
 ## user Story
 As a businer owner, i want to be able to view and manage the department, roles and employees to help keep my business organized and also track my employees information. 
