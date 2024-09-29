@@ -6,6 +6,8 @@ This is a command-line application that allowes a company to track it's employee
 As a businer owner, i want to be able to view and manage the department, roles and employees to help keep my business organized and also track my employees information. 
 ## Installation
 Video link: 
+![Instruction 01](https://github.com/user-attachments/assets/efa48166-07f0-4689-afbf-e17ed58057a5)
+
 ## Usage
 User can view all departments, roles, and employees. 
 User has the option to add more departments, assign new roles to employees, and add new employees. 
