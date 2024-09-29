@@ -1,6 +1,5 @@
-require('dotenv').config();
 const inquirer = require('inquirer');
-const pool = require('./db/db');  
+const pool = require('./db/db');
 
 async function mainMenu() {
     const { action } = await inquirer.prompt({
@@ -15,6 +14,9 @@ async function mainMenu() {
             'Add a role',
             'Add an employee',
             'Update an employee role',
+            'Delete a department',
+            'Delete a role',
+            'Delete an employee',
             'Exit',
         ],
     });
@@ -34,10 +36,17 @@ async function mainMenu() {
             return addEmployee();
         case 'Update an employee role':
             return updateEmployeeRole();
+        case 'Delete a department':
+            return deleteDepartment();
+        case 'Delete a role':
+            return deleteRole();
+        case 'Delete an employee':
+            return deleteEmployee();
         default:
             process.exit();
     }
 }
+
 
 mainMenu();
 
@@ -156,5 +165,53 @@ async function updateEmployeeRole() {
 
     await pool.query('UPDATE employees SET role_id = $1 WHERE id = $2', [role_id, employee_id]);
     console.log('Updated employee role.');
+    mainMenu();
+}
+
+async function deleteDepartment() {
+    const departments = await pool.query('SELECT * FROM departments');
+    const departmentChoices = departments.rows.map(({ id, name }) => ({ name, value: id }));
+
+    const { department_id } = await inquirer.prompt({
+        type: 'list',
+        name: 'department_id',
+        message: 'Select the department to delete:',
+        choices: departmentChoices,
+    });
+
+    await pool.query('DELETE FROM departments WHERE id = $1', [department_id]);
+    console.log('Deleted department.');
+    mainMenu();
+}
+
+async function deleteRole() {
+    const roles = await pool.query('SELECT * FROM roles');
+    const roleChoices = roles.rows.map(({ id, title }) => ({ name: title, value: id }));
+
+    const { role_id } = await inquirer.prompt({
+        type: 'list',
+        name: 'role_id',
+        message: 'Select the role to delete:',
+        choices: roleChoices,
+    });
+
+    await pool.query('DELETE FROM roles WHERE id = $1', [role_id]);
+    console.log('Deleted role.');
+    mainMenu();
+}
+
+async function deleteEmployee() {
+    const employees = await pool.query('SELECT * FROM employees');
+    const employeeChoices = employees.rows.map(({ id, first_name, last_name }) => ({ name: `${first_name} ${last_name}`, value: id }));
+
+    const { employee_id } = await inquirer.prompt({
+        type: 'list',
+        name: 'employee_id',
+        message: 'Select the employee to delete:',
+        choices: employeeChoices,
+    });
+
+    await pool.query('DELETE FROM employees WHERE id = $1', [employee_id]);
+    console.log('Deleted employee.');
     mainMenu();
 }

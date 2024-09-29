@@ -4,6 +4,16 @@ CREATE TABLE departments (
     id SERIAL PRIMARY KEY,
     name VARCHAR(30) NOT NULL
 );
+DELETE FROM departments (name) VALUES
+('Sales'),
+('Engineering'),
+('HR');
+
+UPDATE departments (name) VALUES
+('Sales'),
+('Engineering'),
+('HR');
+
 
 -- Create roles table
 CREATE TABLE roles (
@@ -13,6 +23,15 @@ CREATE TABLE roles (
     department_id INT REFERENCES departments(id) ON DELETE CASCADE
 );
 
+UPDATE roles (title, salary, department_id) VALUES
+('Salesperson', 100000, 1),
+('Engineer', 120000, 2),
+('HR Specialist', 80000, 3);
+
+DELETE FROM roles (title, salary, department_id) VALUES
+('Salesperson', 100000, 1),
+('Engineer', 120000, 2),
+('HR Specialist', 80000, 3);
 -- Create employees table
 CREATE TABLE employees (
     id SERIAL PRIMARY KEY,
@@ -21,6 +40,18 @@ CREATE TABLE employees (
     role_id INT REFERENCES roles(id) ON DELETE CASCADE,
     manager_id INT REFERENCES employees(id) ON DELETE CASCADE
 );
+
+UPDATE employees (first_name, last_name, role_id, manager_id) VALUES
+('John', 'Doe', 1, NULL),
+('Jane', 'Smith', 2, 1),
+('Alice', 'Williams', 3, 1);
+
+DELETE FROM employees (first_name, last_name, role_id, manager_id) VALUES
+('John', 'Doe', 1, NULL),
+('Jane', 'Smith', 2, 1),
+('Alice', 'Williams', 3, 1);
+
+
 -- Insert initial departments
 INSERT INTO departments (name) VALUES
 ('Sales'),
