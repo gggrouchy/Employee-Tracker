@@ -1,7 +1,7 @@
 # Employee-Tracker
-Manage a company's employee database
 
 ## Description 
+Manage a company's employee database
 This is a command-line application that allowes a company to track it's employees database. 
 
 ## user Story
@@ -17,6 +17,7 @@ Then run node index.js. You will see a list of options to select from, which icl
 See view below for more how it works. 
 
 Video link: 
+
 
 ## Usage
 User can view all departments, roles, and employees. 
